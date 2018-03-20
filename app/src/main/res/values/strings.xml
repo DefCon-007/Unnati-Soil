@@ -7,4 +7,13 @@
     <string name="action_settings">Settings</string>
 
     <string name="gps_permission_denied">GPS Permission needed to update current location.</string>
+
+
+    <!--No GPS Alert Dialog-->
+    <string name="noGPS_alert_dialog_no">No</string>
+    <string name="noGPS_alert_dialog_yes">Yes</string>
+    <string name="noGPS_alert_dialog_title">Your GPS seems to be disabled, do you want to enable it?</string>
+
+    <!--Get Address from Latitude and Longitude -->
+    <string name="default_marker_title">Title</string>
 </resources>
