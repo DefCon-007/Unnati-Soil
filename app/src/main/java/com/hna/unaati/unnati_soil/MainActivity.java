@@ -1,5 +1,6 @@
 package com.hna.unaati.unnati_soil;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -47,7 +50,11 @@ public class MainActivity extends AppCompatActivity
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+
+    private FloatingSearchView mSearchView;
     private boolean fabClicked = false ;
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +62,35 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mContext = this.getApplicationContext();
+        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
         mMarkerOptions = new MarkerOptions().position(mDefaultLocation)
                 .draggable(true)
                 .title("Default Title");
         final gpsTracker gps = new gpsTracker(this);
+
+        mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+            }
+
+            @Override
+            public void onSearchAction(String currentQuery) {
+               updateLocation(gps.getLocartionFromString(currentQuery,mContext));
+            }
+        });
+        mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+            @Override
+            public void onSearchTextChanged(String oldQuery, final String newQuery) {
+
+                //get suggestions based on newQuery
+
+                //pass them on to the search view
+//                mSearchView.swapSuggestions(newSuggestions);
+            }
+        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -324,6 +356,8 @@ public class MainActivity extends AppCompatActivity
     public void onProviderDisabled(String s) {
 
     }
+
+
 
 //    private void getDeviceLocation() {
 //        /*

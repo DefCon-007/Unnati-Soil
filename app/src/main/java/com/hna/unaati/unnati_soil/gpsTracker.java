@@ -10,6 +10,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,6 +19,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.List;
 
 public class gpsTracker extends Service implements LocationListener {
 
@@ -183,6 +190,20 @@ public class gpsTracker extends Service implements LocationListener {
 
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    public LatLng getLocartionFromString(String location, Context c){
+        List<Address> addressList = null;
+        Geocoder geocoder = new Geocoder(c.getApplicationContext());
+        try {
+            addressList = geocoder.getFromLocationName(location, 1);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Address address = addressList.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        return latLng;
     }
 
     @Override
