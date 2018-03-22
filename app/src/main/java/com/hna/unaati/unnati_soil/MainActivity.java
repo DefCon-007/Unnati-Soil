@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity
 
     private gpsTracker gps;
     private FloatingActionButton fabLocation, fabResult;
+    JSONObject cities_latlng = new JSONObject();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int total_entries = 563;
-        JSONObject cities_latlng = new JSONObject();
+        cities_latlng = new JSONObject(); // avoid copy again
         try {
             InputStreamReader is = new InputStreamReader(getAssets()
                     .open("data.csv"));
@@ -143,23 +143,27 @@ public class MainActivity extends AppCompatActivity
             Log.d("read", e.toString());
 
         }
-
-        double lat1 = 22.85;
-        double lat2 = 88.65;
-        double min = 100000;
         Iterator<String> iter = cities_latlng.keys();
         String lat_lng_min="";
         while (iter.hasNext()) {
             String key = iter.next();
-            String[] lat_lng = key.split(",");
-            double dist = distance(lat1, lat2, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
-            if (dist < min) {
-                min = dist;
-                lat_lng_min = key;
+            try {
+                JSONObject obj = cities_latlng.getJSONObject(key);
+                Iterator<String> iter2 = obj.keys();
+                String nearest50 = "0";
+                while (iter2.hasNext()) {
+                    String key2 = iter2.next();
+                    nearest50 = key2;
+                    if (Integer.parseInt(key2) > 50) {
+                        break;
+                    }
+                }
+                obj.put("nearest50", obj.getJSONObject(nearest50));
+            }
+            catch (JSONException e) {
+                //
             }
         }
-
-        Log.d("read", lat_lng_min);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -199,8 +203,36 @@ public class MainActivity extends AppCompatActivity
                 if (gps.canGetLocation){
                     LatLng currentPos = new LatLng(gps.getLatitude(),gps.getLongitude());
                     updateLocation(currentPos);
-                    Log.d("Lat" , String.valueOf(gps.getLatitude()));
-                    Log.d("long", String.valueOf(gps.getLongitude()));
+                    Log.d("read" , "Lat;"+String.valueOf(gps.getLatitude()));
+                    Log.d("read", "Lon:"+String.valueOf(gps.getLongitude()));
+
+                    double lat1 = gps.getLatitude();
+                    double lon1 = gps.getLongitude();
+                    double min = 100000;
+                    Iterator<String> iter = cities_latlng.keys();
+                    String lat_lng_min="";
+                    while (iter.hasNext()) {
+                        String key = iter.next();
+                        String[] lat_lng = key.split(",");
+                        double dist = distance(lat1, lon1, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
+                        if (dist < min) {
+                            min = dist;
+                            lat_lng_min = key;
+                        }
+                    }
+                    try {
+                        JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
+                        Double sand = lat_lng_min_json.getDouble("sand");
+                        Double clay = lat_lng_min_json.getDouble("clay");
+                        Double ph = lat_lng_min_json.getDouble("ph");
+                        Double carbon = lat_lng_min_json.getDouble("carbon");
+                        Log.d("read", lat_lng_min_json.toString());
+                        Log.d("read", carbon.toString());
+                    }
+                    catch (JSONException e) {
+
+                        Log.d("read", e.toString());
+                    }
                 }
                 else {
                     //
@@ -415,7 +447,7 @@ public class MainActivity extends AppCompatActivity
     private void updateLocation(LatLng position) {
         mMarker.setPosition(position);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(position));
-        mMarker.setTitle(getAddress(position));
+//        mMarker.setTitle(getAddress(position));
     }
 
 //    @Override
