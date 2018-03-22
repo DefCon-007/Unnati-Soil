@@ -7,7 +7,7 @@ package com.hna.unaati.unnati_soil;
 public class prediction {
     private double organicCarbon, totalNitorgen, sand, pH, clay ;
 
-    public void prediction(double sand, double clay, double pH, double organicCarbon  ){
+    public prediction(double sand, double clay, double pH, double organicCarbon  ){
         this.clay = clay ;
         this.pH = pH;
         this.organicCarbon = organicCarbon ;

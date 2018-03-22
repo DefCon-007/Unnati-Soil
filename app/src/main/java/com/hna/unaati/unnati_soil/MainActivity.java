@@ -2,6 +2,7 @@ package com.hna.unaati.unnati_soil;
 
 import android.content.Context;
 import android.content.Intent;
+import android.gesture.Prediction;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -43,7 +44,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback,LocationListener {
-
+    private prediction p;
     private MapView mapView;
     private GoogleMap gmap;
     private MarkerOptions mMarkerOptions;
@@ -222,10 +223,12 @@ public class MainActivity extends AppCompatActivity
                     }
                     try {
                         JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
+
                         Double sand = lat_lng_min_json.getDouble("sand");
                         Double clay = lat_lng_min_json.getDouble("clay");
                         Double ph = lat_lng_min_json.getDouble("ph");
                         Double carbon = lat_lng_min_json.getDouble("carbon");
+                        p = new prediction(sand, clay, ph, carbon);
                         Log.d("read", lat_lng_min_json.toString());
                         Log.d("read", carbon.toString());
                     }
