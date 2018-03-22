@@ -54,11 +54,8 @@ public class MainActivity extends AppCompatActivity
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private double lat,lang;
     private static final int DEFAULT_ZOOM = 15;
-
-    // Keys for storing activity state.
-    private static final String KEY_CAMERA_POSITION = "camera_position";
-    private static final String KEY_LOCATION = "location";
 
 
     private FloatingSearchView mSearchView;
@@ -207,35 +204,9 @@ public class MainActivity extends AppCompatActivity
                     Log.d("read" , "Lat;"+String.valueOf(gps.getLatitude()));
                     Log.d("read", "Lon:"+String.valueOf(gps.getLongitude()));
 
-                    double lat1 = gps.getLatitude();
-                    double lon1 = gps.getLongitude();
-                    double min = 100000;
-                    Iterator<String> iter = cities_latlng.keys();
-                    String lat_lng_min="";
-                    while (iter.hasNext()) {
-                        String key = iter.next();
-                        String[] lat_lng = key.split(",");
-                        double dist = distance(lat1, lon1, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
-                        if (dist < min) {
-                            min = dist;
-                            lat_lng_min = key;
-                        }
-                    }
-                    try {
-                        JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
+                     lat = gps.getLatitude();
+                     lang = gps.getLongitude();
 
-                        Double sand = lat_lng_min_json.getDouble("sand");
-                        Double clay = lat_lng_min_json.getDouble("clay");
-                        Double ph = lat_lng_min_json.getDouble("ph");
-                        Double carbon = lat_lng_min_json.getDouble("carbon");
-                        p = new prediction(sand, clay, ph, carbon);
-                        Log.d("read", lat_lng_min_json.toString());
-                        Log.d("read", carbon.toString());
-                    }
-                    catch (JSONException e) {
-
-                        Log.d("read", e.toString());
-                    }
                 }
                 else {
                     //
@@ -252,9 +223,47 @@ public class MainActivity extends AppCompatActivity
         fabResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                double min = 100000;
+                Iterator<String> iter = cities_latlng.keys();
+                String lat_lng_min = "";
+                while (iter.hasNext()) {
+                    String key = iter.next();
+                    String[] lat_lng = key.split(",");
+                    double dist = distance(lat, lang, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
+                    if (dist < min) {
+                        min = dist;
+                        lat_lng_min = key;
+                    }
+                }
+                Double sand = null;
+                Double clay = null;
+                Double ph = null;
+                Double carbon = null;
+                try {
+                    JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
+
+                    sand = lat_lng_min_json.getDouble("sand");
+                    clay = lat_lng_min_json.getDouble("clay");
+                    ph = lat_lng_min_json.getDouble("ph");
+                    carbon = lat_lng_min_json.getDouble("carbon");
+                    Log.d("read", lat_lng_min_json.toString());
+                    Log.d("read", carbon.toString());
+                } catch (JSONException e) {
+
+                    Log.d("read", e.toString());
+                }
+
                 Intent myIntent = new Intent(MainActivity.this, resultNew.class);
-//                myIntent.putExtra("key", value); //Optional parameters
+                Bundle b = new Bundle();
+                b.putDouble("sand", sand); //Optional parameters
+                b.putDouble("clay", clay);
+                b.putDouble("ph", ph);
+                b.putDouble("carbon", carbon);
+                myIntent.putExtras(b);
+
                 MainActivity.this.startActivity(myIntent);
+
             }
         });
 
@@ -287,6 +296,8 @@ public class MainActivity extends AppCompatActivity
         gps = new gpsTracker(this);
         fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
         fabResult = (FloatingActionButton) findViewById(R.id.fab_result);
+        lat= mDefaultLocation.latitude;
+        lang = mDefaultLocation.longitude;
     }
 
     public String getAddress(LatLng position) {
