@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hna.unaati.unnati_soil.resultNew">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+           android:layout_height="match_parent">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:id="@+id/tvFetiliserName"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:layout_height="wrap_content"
+                   android:text="Sample Fertiliser Name" />
+               <TextView
+                   android:id="@+id/tvFertiliserQuantity"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:layout_height="wrap_content"
+                   android:text="XXX KG" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tvNitrogenContentLabel"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:layout_height="wrap_content"
+                   android:text="@string/result_nitrogen_lable" />
+               <TextView
+                   android:id="@+id/tvNitrogenContent"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:layout_height="wrap_content"
+                   android:text="XX%" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginTop="125dp"
+               android:orientation="vertical"
+               >
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvSand"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_sand_lable" />
+                   <EditText
+                       android:id="@+id/edSand"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvpH"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_pH_lable" />
+                   <EditText
+                       android:id="@+id/edpH"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvOC"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_oc_lable" />
+                   <EditText
+                       android:id="@+id/edOC"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvClay"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_clay_lable" />
+                   <EditText
+                       android:id="@+id/edClay"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+           </LinearLayout>
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/buttonRecalculate"
+               android:text="@string/result_button_recalculate"
+               android:layout_gravity="bottom|center"
+               />
+       </LinearLayout>
+
+
+   </ScrollView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
+
+</android.support.constraint.ConstraintLayout>
