@@ -1,6 +1,7 @@
 package com.hna.unaati.unnati_soil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity
     private boolean fabClicked = false ;
 
     private Context mContext;
-
+    private gpsTracker gps;
+    private FloatingActionButton fabLocation, fabResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +83,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mContext = this.getApplicationContext();
-        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
-        mMarkerOptions = new MarkerOptions().position(mDefaultLocation)
-                .draggable(true)
-                .title("Default Title");
-        final gpsTracker gps = new gpsTracker(this);
+        initialiseVariables();
 
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
@@ -111,8 +108,8 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        fabLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fabClicked = (fabClicked) ? false : true ;
@@ -135,6 +132,15 @@ public class MainActivity extends AppCompatActivity
 
         });
 
+        fabResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainActivity.this, result.class);
+//                myIntent.putExtra("key", value); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -153,6 +159,17 @@ public class MainActivity extends AppCompatActivity
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
 
+    }
+
+    private void initialiseVariables(){
+        mContext = this.getApplicationContext();
+        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
+        mMarkerOptions = new MarkerOptions().position(mDefaultLocation)
+                .draggable(true)
+                .title("Default Title");
+        gps = new gpsTracker(this);
+        fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
+        fabResult = (FloatingActionButton) findViewById(R.id.fab_result);
     }
 
     public String getAddress(LatLng position) {
