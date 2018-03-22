@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hna.unaati.unnati_soil">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -11,8 +13,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBs5oNbyX0GW1n04Z9jjALK0rQFSl8AYy8"/>
-
+            android:value="AIzaSyBs5oNbyX0GW1n04Z9jjALK0rQFSl8AYy8" />
 
         <uses-library android:name="com.google.android.maps" />
 
@@ -26,6 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".result"
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
