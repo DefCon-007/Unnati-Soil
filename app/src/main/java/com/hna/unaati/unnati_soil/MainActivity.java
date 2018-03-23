@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_announcement) {
 
         } else if (id == R.id.nav_language) {
-//            showLanguageSelector();
+            showLanguageSelector();
 
         }
 
@@ -502,7 +502,52 @@ public class MainActivity extends AppCompatActivity
 //        }
 //    }
 
+    public void showLanguageSelector(){
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
+        builderSingle.setIcon(R.drawable.translation);
+        builderSingle.setTitle(getString(R.string.main_activity_language_select));
 
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("English");
+        arrayAdapter.add("বাঙালি");
+
+        builderSingle.setNegativeButton(getString(R.string.main_activity_language_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0 :
+                        changeLanguage("en");
+                        break;
+                    case 1 :
+                        changeLanguage("ben");
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+        builderSingle.show();
+    }
+
+
+    private void changeLanguage(String languageToLoad){
+//        shPref.edit().putString("language", languageToLoad).apply();
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+
+
+    }
 
 
 

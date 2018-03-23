@@ -57,6 +57,33 @@
                    android:text="XX%" />
            </LinearLayout>
 
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/limeReccom"
+               android:visibility="gone"
+               />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tvLimeLabel"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:layout_height="wrap_content"
+                   android:text="@string/result_nitrogen_lable" />
+               <TextView
+                   android:id="@+id/tvlimeContent"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:layout_height="wrap_content"
+                   android:text="XX%" />
+           </LinearLayout>
+
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"

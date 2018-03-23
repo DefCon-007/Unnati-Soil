@@ -1,12 +1,9 @@
 package com.hna.unaati.unnati_soil;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,17 +25,18 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 
-import java.util.Locale;
+import java.text.DecimalFormat;
 
 public class resultNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback,LocationListener {
 
     private EditText ed_sand,ed_clay,ed_ph,ed_oc;
-    private TextView tv_nitrogen;
+    private TextView tv_nitrogen,lime,tvLimeContent,tvDolo;
     private MapView mapView;
     private GoogleMap gmap;
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
     private gpsTracker gps;
+    private Button recal ;
 
     private LatLng mDefaultLocation = new LatLng(22.3218, 87.3074);
     private int mDefaultZoom = 15;
@@ -66,6 +64,18 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_new);
         initialiseVariables();
+        recal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sand = Double.parseDouble(ed_sand.getText().toString());
+                clay = Double.parseDouble(ed_clay.getText().toString());
+                ph = Double.parseDouble(ed_ph.getText().toString());
+                carbon = Double.parseDouble(ed_oc.getText().toString());
+                prediction pNew = new prediction(sand,clay,ph,carbon);
+                fillViews(pNew);
+            }
+        });
+
         try {
         Bundle b = getIntent().getExtras();
         Log.d("result","Getting data from intent");
@@ -82,12 +92,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
             carbon = locData.getCarbon();
         }
         prediction p = new prediction(sand,clay,ph,carbon);
-        ed_clay.setText(String.valueOf(p.clay));
-        ed_sand.setText(String.valueOf(p.sand));
-        ed_ph.setText(String.valueOf(p.pH));
-        ed_oc.setText(String.valueOf(p.organicCarbon));
-        tv_nitrogen.setText(String.valueOf(p.getTotalNitorgen())+"%");
-
+        fillViews(p);
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MainActivity.MAP_VIEW_BUNDLE_KEY);
@@ -100,6 +105,47 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    private void fillViews(prediction p){
+        DecimalFormat df = new DecimalFormat("####0.00");
+        ed_clay.setText(String.valueOf(p.clay));
+        ed_sand.setText(String.valueOf(p.sand));
+        ed_ph.setText(String.valueOf(p.pH));
+        ed_oc.setText(String.valueOf(p.organicCarbon));
+        tv_nitrogen.setText(String.valueOf(p.getNitrogenVolumeRice())+"t/ha");
+        //Lime recommendation according to pH
+        if ((ph>4.5)  && (ph<5.5) ){
+            // quantity = kg of limeStone/ NV
+            double quant = 600/1.1 ;
+            lime.setVisibility(View.VISIBLE);
+            tvDolo.setVisibility(View.VISIBLE);
+            tvLimeContent.setVisibility(View.VISIBLE);
+            lime.setText(getString(R.string.lime_reco));
+            lime.setText(getString(R.string.lime_reco));
+            tvLimeContent.setText(String.valueOf(df.format(quant)) + " " + getString(R.string.kg_ha));
+        }
+        else if ((ph>5.5) && (ph<6.5)){
+            double quant = 900/1.1 ;
+            tvDolo.setVisibility(View.VISIBLE);
+            tvLimeContent.setVisibility(View.VISIBLE);
+            lime.setVisibility(View.VISIBLE);
+            lime.setText(getString(R.string.lime_reco));
+            lime.setText(getString(R.string.lime_reco));
+            tvLimeContent.setText(String.valueOf(df.format(quant)) + " " + getString(R.string.kg_ha));
+        }
+        else if (ph > 6.5){
+            lime.setVisibility(View.VISIBLE);
+            tvDolo.setVisibility(View.GONE);
+            tvLimeContent.setVisibility(View.GONE);
+            lime.setText(getString(R.string.no_lime));
+        }
+//        else {
+//            tvDolo.setVisibility(View.GONE);
+//            tvLimeContent.setVisibility(View.GONE);
+//            lime.setVisibility(View.VISIBLE);
+//            lime.setText(getString(R.string.lime_reco));
+//        }
+    }
+
     private void initialiseVariables(){
         ed_clay = (EditText) findViewById(R.id.edClay);
         ed_sand = (EditText) findViewById(R.id.edSand);
@@ -107,12 +153,15 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         ed_ph = (EditText) findViewById(R.id.edpH);
         tv_nitrogen = (TextView) findViewById(R.id.tvNitrogenContent);
         mapView = (MapView) findViewById(R.id.mapView);
+        lime = (TextView) findViewById(R.id.limeReccom);
         gps = new gpsTracker(this.getApplicationContext());
         mMarkerOptions = new MarkerOptions().position(mDefaultLocation)
                 .draggable(false);
         LatLng ll = getLocation();
         locData = new locationData(this.getApplicationContext(),ll.latitude,ll.longitude);
-
+        tvDolo = (TextView) findViewById(R.id.tvLimeLabel);
+        tvLimeContent = (TextView) findViewById(R.id.tvlimeContent);
+        recal = (Button) findViewById(R.id.buttonRecalculate);
     }
 
 
