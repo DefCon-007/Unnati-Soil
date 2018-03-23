@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String PREFS_NAME = "UnnatiPref1kdvbbvw";
     private SharedPreferences shPref ;
-    private String selectedLanguage = "en";
+
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
@@ -182,11 +182,9 @@ public class MainActivity extends AppCompatActivity
         if (shPref.getBoolean("my_first_time", true)) {
            showLanguageSelector();
            shPref.edit().putBoolean("my_first_time", false).apply();
-           Log.d("OnCreate","Selected Langugae" + selectedLanguage);
-           shPref.edit().putString("language", selectedLanguage).apply();
+
         }
         else {
-            Log.d("onCreate Else",shPref.getString("language","en"));
             changeLanguage(shPref.getString("language","en"));
         }
 
@@ -488,7 +486,7 @@ public class MainActivity extends AppCompatActivity
 
     public void showLanguageSelector(){
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
-        builderSingle.setIcon(R.drawable.ic_chart_result);
+        builderSingle.setIcon(R.drawable.translation);
         builderSingle.setTitle(getString(R.string.main_activity_language_select));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
@@ -517,16 +515,16 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 String strName = arrayAdapter.getItem(which);
-                AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
-                builderInner.setMessage(strName);
-                builderInner.setTitle("Your Selected Item is");
-                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog,int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builderInner.show();
+//                AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
+//                builderInner.setMessage(strName);
+//                builderInner.setTitle("Your Selected Item is");
+//                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog,int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builderInner.show();
             }
         });
         builderSingle.show();
@@ -534,8 +532,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void changeLanguage(String languageToLoad){
-        Log.d(" changeLanguge", languageToLoad);
-        selectedLanguage = languageToLoad;
+        shPref.edit().putString("language", languageToLoad).apply();
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
