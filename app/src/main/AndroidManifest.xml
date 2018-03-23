@@ -29,11 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".resultNew"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_result_new"></activity>
+            android:label="@string/title_activity_result_new"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".announcement"></activity>
     </application>
 
 </manifest>

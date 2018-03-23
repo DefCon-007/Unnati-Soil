@@ -369,7 +369,8 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         } else if (id == R.id.nav_announcement) {
-
+            Intent myIntent = new Intent(MainActivity.this, announcement.class);
+            MainActivity.this.startActivity(myIntent);
         } else if (id == R.id.nav_language) {
             showLanguageSelector();
 
@@ -456,10 +457,8 @@ public class MainActivity extends AppCompatActivity
         gmap.moveCamera(CameraUpdateFactory.newLatLng(position));
         CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
 
-        
         gmap.animateCamera(zoom);
 
-//        mMarker.setTitle(getAddress(position));
     }
 
     public void showLanguageSelector(){
