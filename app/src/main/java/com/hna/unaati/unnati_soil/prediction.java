@@ -5,7 +5,7 @@ package com.hna.unaati.unnati_soil;
  */
 
 public class prediction {
-    private double organicCarbon, totalNitorgen,totalPhosphorous, sand, pH, clay ;
+    public double organicCarbon, totalNitorgen,totalPhosphorous, sand, pH, clay ;
 
     public prediction(double sand, double clay, double pH, double organicCarbon  ){
         this.clay = clay ;

@@ -1,9 +1,13 @@
 package com.hna.unaati.unnati_soil;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.gesture.Prediction;
 import android.location.Address;
 import android.location.Geocoder;
@@ -11,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,6 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -55,21 +61,22 @@ public class MainActivity extends AppCompatActivity
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
+    private static final String PREFS_NAME = "UnnatiPref1kdvbbvw";
+    private SharedPreferences shPref ;
+    private String selectedLanguage = "en";
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private double lat,lang;
     private static final int DEFAULT_ZOOM = 15;
-
-    // Keys for storing activity state.
-    private static final String KEY_CAMERA_POSITION = "camera_position";
-    private static final String KEY_LOCATION = "location";
 
 
     private FloatingSearchView mSearchView;
     private boolean fabClicked = false ;
 
     private Context mContext;
+
 
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         char unit = 'K';
@@ -107,6 +114,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cities_latlng = new JSONObject(); // avoid copy again
+
         try {
             InputStreamReader is = new InputStreamReader(getAssets()
                     .open("data.csv"));
@@ -176,6 +184,16 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         initialiseVariables();
+        if (shPref.getBoolean("my_first_time", true)) {
+           showLanguageSelector();
+           shPref.edit().putBoolean("my_first_time", false).apply();
+           Log.d("OnCreate","Selected Langugae" + selectedLanguage);
+           shPref.edit().putString("language", selectedLanguage).apply();
+        }
+        else {
+            Log.d("onCreate Else",shPref.getString("language","en"));
+            changeLanguage(shPref.getString("language","en"));
+        }
 
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
@@ -212,35 +230,9 @@ public class MainActivity extends AppCompatActivity
                     Log.d("read" , "Lat;"+String.valueOf(gps.getLatitude()));
                     Log.d("read", "Lon:"+String.valueOf(gps.getLongitude()));
 
-                    double lat1 = gps.getLatitude();
-                    double lon1 = gps.getLongitude();
-                    double min = 100000;
-                    Iterator<String> iter = cities_latlng.keys();
-                    String lat_lng_min="";
-                    while (iter.hasNext()) {
-                        String key = iter.next();
-                        String[] lat_lng = key.split(",");
-                        double dist = distance(lat1, lon1, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
-                        if (dist < min) {
-                            min = dist;
-                            lat_lng_min = key;
-                        }
-                    }
-                    try {
-                        JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
+                     lat = gps.getLatitude();
+                     lang = gps.getLongitude();
 
-                        Double sand = lat_lng_min_json.getDouble("sand");
-                        Double clay = lat_lng_min_json.getDouble("clay");
-                        Double ph = lat_lng_min_json.getDouble("ph");
-                        Double carbon = lat_lng_min_json.getDouble("carbon");
-                        p = new prediction(sand, clay, ph, carbon);
-                        Log.d("read", lat_lng_min_json.toString());
-                        Log.d("read", carbon.toString());
-                    }
-                    catch (JSONException e) {
-
-                        Log.d("read", e.toString());
-                    }
                 }
                 else {
                     //
@@ -257,9 +249,47 @@ public class MainActivity extends AppCompatActivity
         fabResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                double min = 100000;
+                Iterator<String> iter = cities_latlng.keys();
+                String lat_lng_min = "";
+                while (iter.hasNext()) {
+                    String key = iter.next();
+                    String[] lat_lng = key.split(",");
+                    double dist = distance(lat, lang, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
+                    if (dist < min) {
+                        min = dist;
+                        lat_lng_min = key;
+                    }
+                }
+                Double sand = null;
+                Double clay = null;
+                Double ph = null;
+                Double carbon = null;
+                try {
+                    JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
+
+                    sand = lat_lng_min_json.getDouble("sand");
+                    clay = lat_lng_min_json.getDouble("clay");
+                    ph = lat_lng_min_json.getDouble("ph");
+                    carbon = lat_lng_min_json.getDouble("carbon");
+                    Log.d("read", lat_lng_min_json.toString());
+                    Log.d("read", carbon.toString());
+                } catch (JSONException e) {
+
+                    Log.d("read", e.toString());
+                }
+
                 Intent myIntent = new Intent(MainActivity.this, resultNew.class);
-//                myIntent.putExtra("key", value); //Optional parameters
+                Bundle b = new Bundle();
+                b.putDouble("sand", sand); //Optional parameters
+                b.putDouble("clay", clay);
+                b.putDouble("ph", ph);
+                b.putDouble("carbon", carbon);
+                myIntent.putExtras(b);
+
                 MainActivity.this.startActivity(myIntent);
+
             }
         });
 
@@ -292,6 +322,9 @@ public class MainActivity extends AppCompatActivity
         gps = new gpsTracker(this);
         fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
         fabResult = (FloatingActionButton) findViewById(R.id.fab_result);
+        lat= mDefaultLocation.latitude;
+        lang = mDefaultLocation.longitude;
+        shPref = this.getSharedPreferences(PREFS_NAME, 0);
     }
 
     public String getAddress(LatLng position) {
@@ -468,6 +501,63 @@ public class MainActivity extends AppCompatActivity
 //        mMarker.setTitle(getAddress(position));
     }
 
+    public void showLanguageSelector(){
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
+        builderSingle.setIcon(R.drawable.ic_chart_result);
+        builderSingle.setTitle(getString(R.string.main_activity_language_select));
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("English");
+        arrayAdapter.add("বাঙালি");
+
+        builderSingle.setNegativeButton(getString(R.string.main_activity_language_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0 :
+                        changeLanguage("en");
+                        break;
+                    case 1 :
+                        changeLanguage("ben");
+                        break;
+                    default:
+                        break;
+                }
+
+                String strName = arrayAdapter.getItem(which);
+                AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
+                builderInner.setMessage(strName);
+                builderInner.setTitle("Your Selected Item is");
+                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builderInner.show();
+            }
+        });
+        builderSingle.show();
+    }
+
+
+    private void changeLanguage(String languageToLoad){
+        Log.d(" changeLanguge", languageToLoad);
+        selectedLanguage = languageToLoad;
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+
+    }
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode,
 //                                           @NonNull String permissions[],

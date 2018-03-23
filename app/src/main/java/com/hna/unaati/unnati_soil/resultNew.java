@@ -5,12 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class resultNew extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
+    private EditText ed_sand,ed_clay,ed_ph,ed_oc;
+    private TextView tv_nitrogen;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -32,10 +33,25 @@ public class resultNew extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_new);
+        initialiseVariables();
+        Bundle b = getIntent().getExtras();
+        prediction p = new prediction(b.getDouble("sand"),b.getDouble("clay"),b.getDouble("ph"),b.getDouble("carbon"));
+        ed_clay.setText(String.valueOf(p.clay));
+        ed_sand.setText(String.valueOf(p.sand));
+        ed_ph.setText(String.valueOf(p.pH));
+        ed_oc.setText(String.valueOf(p.organicCarbon));
+        tv_nitrogen.setText(String.valueOf(p.getTotalNitorgen())+"%");
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private void initialiseVariables(){
+        ed_clay = (EditText) findViewById(R.id.edClay);
+        ed_sand = (EditText) findViewById(R.id.edSand);
+        ed_oc = (EditText) findViewById(R.id.edOC);
+        ed_ph = (EditText) findViewById(R.id.edpH);
+        tv_nitrogen = (TextView) findViewById(R.id.tvNitrogenContent);
     }
 
 }
