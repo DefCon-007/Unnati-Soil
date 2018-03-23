@@ -34,10 +34,12 @@ import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -88,6 +90,44 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        try {
+            InputStreamReader is = new InputStreamReader(getAssets()
+                    .open("soilNew.csv"));
+
+            BufferedReader reader = new BufferedReader(is);
+            reader.readLine();
+            String line;
+            int i =0;
+            while ((line = reader.readLine()) != null) {
+                i+=1;
+                if (i == 1)
+                    continue; //to bypass header
+                String[] separated = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                //Log.d("read", separated[3]);
+                JSONObject data_lab = new JSONObject();
+                try {
+                    if (separated.length == 36) {
+                        data_lab.put("name", separated[8]);
+                        data_lab.put("email", separated[11]);
+                        data_lab.put("mobile", separated[12]);
+                        labs_latlng.put(separated[34]+","+separated[35], data_lab);
+                    }
+                    else {
+                        Log.d("read", "except");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            Log.d("read", labs_latlng.toString());
+        }
+        catch (IOException e) {
+            Log.d("read", e.toString());
+
+        }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -343,7 +383,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
-        gmap.setMinZoomPreference(DEFAULT_ZOOM);
+
 
         mMarker = gmap.addMarker(mMarkerOptions);
 
@@ -352,32 +392,29 @@ public class MainActivity extends AppCompatActivity
         while (iter.hasNext()) {
             String key = iter.next();
             String[] lat_lng = key.split(",");
-            try {
-
+//            try {
+                Log.d("read", "start");
                 NumberFormat nf = NumberFormat.getInstance();
                 double lat = 0, lon = 0;
                 try {
                     lat = nf.parse(lat_lng[0]).doubleValue();
-                    lon = nf.parse(lat_lng[0]).doubleValue();
-                }
-                catch (Exception e) {
-
-                }
+                    lon = nf.parse(lat_lng[1]).doubleValue();
 
                 JSONObject obj = labs_latlng.getJSONObject(key);
                 LatLng temp = new LatLng(lat,lon);
-                googleMap.addMarker(new MarkerOptions().position(temp)
-                        .title(obj.getString("name") + ":" + obj.getString("mobile")));
-                i+=1;
-                if (i == 3) {
-                    Log.d("read", temp.toString());
-                    gmap.moveCamera(CameraUpdateFactory.newLatLng(temp));
-
+                gmap.addMarker(new MarkerOptions().position(temp)
+                        .title(obj.getString("name"))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                        .snippet("Phone: " + obj.getString("mobile") + ", Email:" + obj.getString("email")));
+                Log.d("read", temp.toString());
+                Log.d("read", "end");
                 }
-            }
-            catch (JSONException e) {
-                //
-            }
+                catch (Exception e) {
+                    Log.d("read", e.toString());
+                }
+
+//            }
+
         }
 
 
@@ -417,6 +454,11 @@ public class MainActivity extends AppCompatActivity
     private void updateLocation(LatLng position) {
         mMarker.setPosition(position);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(position));
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+
+        
+        gmap.animateCamera(zoom);
+
 //        mMarker.setTitle(getAddress(position));
     }
 
