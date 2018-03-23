@@ -8,6 +8,9 @@
 
     <string name="gps_permission_denied">GPS Permission needed to update current location.</string>
 
+    <!--Main Activity-->
+    <string name="main_activity_language_select">Select Language</string>
+    <string name="main_activity_language_cancel">Cancel</string>
 
     <!--No GPS Alert Dialog-->
     <string name="noGPS_alert_dialog_no">No</string>

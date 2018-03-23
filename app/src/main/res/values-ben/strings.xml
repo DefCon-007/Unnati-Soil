@@ -1,0 +1,13 @@
+<resources>
+    <!--Result Activity-->
+    <string name="result_nitrogen_lable">নাইট্রোজেন</string>
+    <string name="result_sand_lable">বালি</string>
+    <string name="result_pH_lable">মাটি pH</string>
+    <string name="result_oc_lable">জৈব কারবন</string>
+    <string name="result_clay_lable">কাদামাটি</string>
+    <string name="result_button_recalculate">Recalculate</string>
+    <string name="title_activity_result_new">resultNew</string>
+    <string name="title_maize">Maize</string>
+    <string name="title_rice">Rice</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
