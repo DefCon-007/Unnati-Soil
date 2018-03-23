@@ -29,9 +29,14 @@
                 android:icon="@drawable/ic_call"
                 android:title="Call" />
             <item
+
                 android:id="@+id/nav_announcement"
                 android:icon="@drawable/ic_announcement"
                 android:title="Announcements" />
+            <item
+                android:id="@+id/nav_language"
+                android:icon="@drawable/translation"
+                android:title="@string/main_activity_language_select" />
         </menu>
     </item>
 

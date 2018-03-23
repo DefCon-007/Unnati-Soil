@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity
     private GoogleMap gmap;
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
-    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
+    public static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String PREFS_NAME = "UnnatiPref1kdvbbvw";
     private SharedPreferences shPref ;
-    private String selectedLanguage = "en";
+
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private final LatLng mDefaultLocation = new LatLng(22.3218, 87.3074);
     private double lat,lang;
     private static final int DEFAULT_ZOOM = 15;
 
@@ -78,149 +78,15 @@ public class MainActivity extends AppCompatActivity
 
     private Context mContext;
 
-
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        char unit = 'K';
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        if (unit == 'K') {
-            dist = dist * 1.609344;
-        } else if (unit == 'N') {
-            dist = dist * 0.8684;
-        }
-        return (dist);
-    }
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    /*::  This function converts decimal degrees to radians             :*/
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    /*::  This function converts radians to decimal degrees             :*/
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
-
     private gpsTracker gps;
+    private locationData locData;
     private FloatingActionButton fabLocation, fabResult;
-    JSONObject cities_latlng = new JSONObject();
     JSONObject labs_latlng = new JSONObject();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cities_latlng = new JSONObject(); // avoid copy again
-
-        try {
-            InputStreamReader is = new InputStreamReader(getAssets()
-                    .open("data.csv"));
-
-            BufferedReader reader = new BufferedReader(is);
-            reader.readLine();
-            String line;
-            int i =0;
-            while ((line = reader.readLine()) != null) {
-                i+=1;
-                if (i == 1)
-                    continue; //to bypass header
-                String[] separated = line.split(",");
-                //Log.d("read", separated[3]);
-
-                JSONObject soil_data = new JSONObject();
-                try {
-                    soil_data.put("sand",  Double.parseDouble(separated[7]));
-                    soil_data.put("clay",  Double.parseDouble(separated[8]));
-                    soil_data.put("ph",  Double.parseDouble(separated[9]));
-                    soil_data.put("carbon",  Double.parseDouble(separated[10]));
-
-                    if(cities_latlng.has(separated[3]+","+separated[4])) {
-                        cities_latlng.getJSONObject(separated[3]+","+separated[4]).put(separated[6], soil_data); //depth - data
-                    }
-                    else {
-                        JSONObject soil_data_depth = new JSONObject();
-                        soil_data_depth.put(separated[6], soil_data);
-                        cities_latlng.put(separated[3]+","+separated[4], soil_data_depth);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-            Log.d("read", cities_latlng.toString());
-        }
-        catch (IOException e) {
-            Log.d("read", e.toString());
-
-        }
-
-
-
-        try {
-            InputStreamReader is = new InputStreamReader(getAssets()
-                    .open("soilNew.csv"));
-
-            BufferedReader reader = new BufferedReader(is);
-            reader.readLine();
-            String line;
-            int i =0;
-            while ((line = reader.readLine()) != null) {
-                i+=1;
-                if (i == 1)
-                    continue; //to bypass header
-                String[] separated = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                //Log.d("read", separated[3]);
-                JSONObject data_lab = new JSONObject();
-                try {
-                    if (separated.length == 36) {
-                        data_lab.put("name", separated[8]);
-                        data_lab.put("email", separated[11]);
-                        data_lab.put("mobile", separated[12]);
-                        labs_latlng.put(separated[34]+","+separated[35], data_lab);
-                    }
-                    else {
-                        Log.d("read", "except");
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-            Log.d("read", labs_latlng.toString());
-        }
-        catch (IOException e) {
-            Log.d("read", e.toString());
-
-        }
-        Iterator<String> iter = cities_latlng.keys();
-        String lat_lng_min="";
-        while (iter.hasNext()) {
-            String key = iter.next();
-            try {
-                JSONObject obj = cities_latlng.getJSONObject(key);
-                Iterator<String> iter2 = obj.keys();
-                String nearest50 = "0";
-                while (iter2.hasNext()) {
-                    String key2 = iter2.next();
-                    nearest50 = key2;
-                    if (Integer.parseInt(key2) > 50) {
-                        break;
-                    }
-                }
-                obj.put("nearest50", obj.getJSONObject(nearest50));
-            }
-            catch (JSONException e) {
-                //
-            }
-        }
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -230,11 +96,9 @@ public class MainActivity extends AppCompatActivity
         if (shPref.getBoolean("my_first_time", true)) {
            showLanguageSelector();
            shPref.edit().putBoolean("my_first_time", false).apply();
-           Log.d("OnCreate","Selected Langugae" + selectedLanguage);
-           shPref.edit().putString("language", selectedLanguage).apply();
+
         }
         else {
-            Log.d("onCreate Else",shPref.getString("language","en"));
             changeLanguage(shPref.getString("language","en"));
         }
 
@@ -266,20 +130,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 fabClicked = (fabClicked) ? false : true ;
-                gps.getLocation();
-                if (gps.canGetLocation){
-                    LatLng currentPos = new LatLng(gps.getLatitude(),gps.getLongitude());
-                    updateLocation(currentPos);
-                    Log.d("read" , "Lat;"+String.valueOf(gps.getLatitude()));
-                    Log.d("read", "Lon:"+String.valueOf(gps.getLongitude()));
 
-                     lat = gps.getLatitude();
-                     lang = gps.getLongitude();
 
-                }
-                else {
-                    //
-                }
 
 
 //
@@ -293,43 +145,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                double min = 100000;
-                Iterator<String> iter = cities_latlng.keys();
-                String lat_lng_min = "";
-                while (iter.hasNext()) {
-                    String key = iter.next();
-                    String[] lat_lng = key.split(",");
-                    double dist = distance(lat, lang, Double.parseDouble(lat_lng[0]), Double.parseDouble(lat_lng[1]));
-                    if (dist < min) {
-                        min = dist;
-                        lat_lng_min = key;
-                    }
-                }
-                Double sand = null;
-                Double clay = null;
-                Double ph = null;
-                Double carbon = null;
-                try {
-                    JSONObject lat_lng_min_json = cities_latlng.getJSONObject(lat_lng_min).getJSONObject("nearest50");
-
-                    sand = lat_lng_min_json.getDouble("sand");
-                    clay = lat_lng_min_json.getDouble("clay");
-                    ph = lat_lng_min_json.getDouble("ph");
-                    carbon = lat_lng_min_json.getDouble("carbon");
-                    Log.d("read", lat_lng_min_json.toString());
-                    Log.d("read", carbon.toString());
-                } catch (JSONException e) {
-
-                    Log.d("read", e.toString());
-                }
-
                 Intent myIntent = new Intent(MainActivity.this, resultNew.class);
-                Bundle b = new Bundle();
-                b.putDouble("sand", sand); //Optional parameters
-                b.putDouble("clay", clay);
-                b.putDouble("ph", ph);
-                b.putDouble("carbon", carbon);
-                myIntent.putExtras(b);
+//                Bundle b = new Bundle();
+//                b.putDouble("sand", sand); //Optional parameters
+//                b.putDouble("clay", clay);
+//                b.putDouble("ph", ph);
+//                b.putDouble("carbon", carbon);
+//                myIntent.putExtras(b);
 
                 MainActivity.this.startActivity(myIntent);
 
@@ -353,6 +175,8 @@ public class MainActivity extends AppCompatActivity
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+
+
 
     }
 
@@ -506,6 +330,9 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_announcement) {
 
+        } else if (id == R.id.nav_language) {
+            showLanguageSelector();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -570,6 +397,21 @@ public class MainActivity extends AppCompatActivity
                 updateLocation(marker.getPosition());
             }
         });
+
+        gps.getLocation();
+        if (gps.canGetLocation){
+            LatLng currentPos = new LatLng(gps.getLatitude(),gps.getLongitude());
+            updateLocation(currentPos);
+            Log.d("read" , "Lat;"+String.valueOf(gps.getLatitude()));
+            Log.d("read", "Lon:"+String.valueOf(gps.getLongitude()));
+
+            lat = gps.getLatitude();
+            lang = gps.getLongitude();
+
+        }
+        else {
+            updateLocation(mDefaultLocation);
+        }
     }
 
     private void updateLocation(LatLng position) {
@@ -580,7 +422,7 @@ public class MainActivity extends AppCompatActivity
 
     public void showLanguageSelector(){
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
-        builderSingle.setIcon(R.drawable.ic_chart_result);
+        builderSingle.setIcon(R.drawable.translation);
         builderSingle.setTitle(getString(R.string.main_activity_language_select));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
@@ -608,17 +450,6 @@ public class MainActivity extends AppCompatActivity
                         break;
                 }
 
-                String strName = arrayAdapter.getItem(which);
-                AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
-                builderInner.setMessage(strName);
-                builderInner.setTitle("Your Selected Item is");
-                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog,int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builderInner.show();
             }
         });
         builderSingle.show();
@@ -626,8 +457,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void changeLanguage(String languageToLoad){
-        Log.d(" changeLanguge", languageToLoad);
-        selectedLanguage = languageToLoad;
+        shPref.edit().putString("language", languageToLoad).apply();
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -670,7 +500,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("New Location", String.valueOf(location.getLatitude()));
         if (fabClicked) {
             updateLocation(new LatLng(location.getLatitude(),location.getLongitude()));
         }
@@ -724,5 +553,9 @@ public class MainActivity extends AppCompatActivity
 //            Log.e("Exception: %s", e.getMessage());
 //        }
 //    }
+
+
+
+
 
 }
