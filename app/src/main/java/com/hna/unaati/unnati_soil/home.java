@@ -76,6 +76,7 @@ public class home extends AppCompatActivity {
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
         Intent i = new Intent(home.this,resultNew.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
 
     }
