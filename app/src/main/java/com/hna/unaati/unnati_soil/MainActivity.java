@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity
     private prediction p;
     private MapView mapView;
     private GoogleMap gmap;
+    private static final String PREFS_NAME = "UnnatiPref1kdvbbvw";
+    private SharedPreferences shPref ;
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
     public static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
@@ -539,7 +541,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private void changeLanguage(String languageToLoad){
-//        shPref.edit().putString("language", languageToLoad).apply();
+        shPref = this.getSharedPreferences(PREFS_NAME, 0);
+        shPref.edit().putString("language", languageToLoad).apply();
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
