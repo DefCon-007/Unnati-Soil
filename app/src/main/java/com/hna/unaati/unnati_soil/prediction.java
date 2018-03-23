@@ -5,7 +5,7 @@ package com.hna.unaati.unnati_soil;
  */
 
 public class prediction {
-    private double organicCarbon, totalNitorgen, sand, pH, clay ;
+    private double organicCarbon, totalNitorgen,totalPhosphorous, sand, pH, clay ;
 
     public prediction(double sand, double clay, double pH, double organicCarbon  ){
         this.clay = clay ;
@@ -21,5 +21,10 @@ public class prediction {
 
     public double getTotalNitorgen(){
         return this.totalNitorgen;
+    }
+
+    private void findTotalPhosphorous(){ totalPhosphorous = 0.7927 * Math.exp(4.9922*organicCarbon);}
+    public double getTotalPhosphorous(){
+        return this.totalPhosphorous;
     }
 }

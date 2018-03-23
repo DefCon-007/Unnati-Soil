@@ -1,14 +1,19 @@
 package com.hna.unaati.unnati_soil;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.gesture.Prediction;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -411,9 +416,19 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_call) {
+            Intent intent = new Intent(Intent.ACTION_CALL);
 
-        } else if (id == R.id.nav_send) {
+            intent.setData(Uri.parse("tel:" + "18001801551"));
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE},1);
+                startActivity(intent);
+            }
+            else
+            {
+                startActivity(intent);
+            }
+        } else if (id == R.id.nav_announcement) {
 
         }
 
