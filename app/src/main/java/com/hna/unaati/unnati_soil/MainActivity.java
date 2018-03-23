@@ -444,8 +444,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_language) {
+            showLanguageSelector();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -514,17 +514,6 @@ public class MainActivity extends AppCompatActivity
                         break;
                 }
 
-                String strName = arrayAdapter.getItem(which);
-//                AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
-//                builderInner.setMessage(strName);
-//                builderInner.setTitle("Your Selected Item is");
-//                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog,int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                builderInner.show();
             }
         });
         builderSingle.show();
