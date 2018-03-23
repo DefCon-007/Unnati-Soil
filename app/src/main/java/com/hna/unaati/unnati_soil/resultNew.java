@@ -33,7 +33,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
     private gpsTracker gps;
     private LatLng mDefaultLocation = new LatLng(22.3218, 87.3074);
     private int mDefaultZoom = 15;
-
+    private locationData locData;
+    private double sand,clay,ph,carbon;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -56,8 +57,22 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_new);
         initialiseVariables();
+        try {
         Bundle b = getIntent().getExtras();
-        prediction p = new prediction(b.getDouble("sand"),b.getDouble("clay"),b.getDouble("ph"),b.getDouble("carbon"));
+        Log.d("result","Getting data from intent");
+        sand = b.getDouble("sand");
+        clay = b.getDouble("clay");
+        ph = b.getDouble("ph");
+        carbon = b.getDouble("carbon");
+        }
+        catch (Exception e){
+            Log.d("result","Estimating data");
+            sand = locData.getSand();
+            clay = locData.getClay();
+            ph = locData.getph();
+            carbon = locData.getCarbon();
+        }
+        prediction p = new prediction(sand,clay,ph,carbon);
         ed_clay.setText(String.valueOf(p.clay));
         ed_sand.setText(String.valueOf(p.sand));
         ed_ph.setText(String.valueOf(p.pH));
@@ -85,6 +100,9 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         gps = new gpsTracker(this.getApplicationContext());
         mMarkerOptions = new MarkerOptions().position(mDefaultLocation)
                 .draggable(false);
+        LatLng ll = getLocation();
+        locData = new locationData(this.getApplicationContext(),ll.latitude,ll.longitude);
+
     }
 
     @Override
