@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity
     private GoogleMap gmap;
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
-    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
+    public static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String PREFS_NAME = "UnnatiPref1kdvbbvw";
     private SharedPreferences shPref ;
 
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private final LatLng mDefaultLocation = new LatLng(22.3218, 87.3074);
     private double lat,lang;
     private static final int DEFAULT_ZOOM = 15;
 
@@ -72,39 +72,11 @@ public class MainActivity extends AppCompatActivity
 
     private Context mContext;
 
-
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        char unit = 'K';
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        if (unit == 'K') {
-            dist = dist * 1.609344;
-        } else if (unit == 'N') {
-            dist = dist * 0.8684;
-        }
-        return (dist);
-    }
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    /*::  This function converts decimal degrees to radians             :*/
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    /*::  This function converts radians to decimal degrees             :*/
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
-
     private gpsTracker gps;
     private FloatingActionButton fabLocation, fabResult;
     JSONObject cities_latlng = new JSONObject();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -564,7 +536,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("New Location", String.valueOf(location.getLatitude()));
         if (fabClicked) {
             updateLocation(new LatLng(location.getLatitude(),location.getLongitude()));
         }
@@ -619,4 +590,33 @@ public class MainActivity extends AppCompatActivity
 //        }
 //    }
 
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        char unit = 'K';
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == 'K') {
+            dist = dist * 1.609344;
+        } else if (unit == 'N') {
+            dist = dist * 0.8684;
+        }
+        return (dist);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts decimal degrees to radians             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts radians to decimal degrees             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
 }
