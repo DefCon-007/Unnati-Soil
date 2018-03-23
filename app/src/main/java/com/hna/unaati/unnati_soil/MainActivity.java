@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
     public static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
-    private static final String PREFS_NAME = "UnnatiPref1kdvbbvw";
-    private SharedPreferences shPref ;
+
 
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
@@ -93,14 +92,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         initialiseVariables();
-        if (shPref.getBoolean("my_first_time", true)) {
-           showLanguageSelector();
-           shPref.edit().putBoolean("my_first_time", false).apply();
 
-        }
-        else {
-            changeLanguage(shPref.getString("language","en"));
-        }
 
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
@@ -191,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         fabResult = (FloatingActionButton) findViewById(R.id.fab_result);
         lat= mDefaultLocation.latitude;
         lang = mDefaultLocation.longitude;
-        shPref = this.getSharedPreferences(PREFS_NAME, 0);
+
     }
 
     public String getAddress(LatLng position) {
@@ -331,7 +323,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_announcement) {
 
         } else if (id == R.id.nav_language) {
-            showLanguageSelector();
+//            showLanguageSelector();
 
         }
 
@@ -420,51 +412,7 @@ public class MainActivity extends AppCompatActivity
 //        mMarker.setTitle(getAddress(position));
     }
 
-    public void showLanguageSelector(){
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
-        builderSingle.setIcon(R.drawable.translation);
-        builderSingle.setTitle(getString(R.string.main_activity_language_select));
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
-        arrayAdapter.add("English");
-        arrayAdapter.add("বাঙালি");
-
-        builderSingle.setNegativeButton(getString(R.string.main_activity_language_cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0 :
-                        changeLanguage("en");
-                        break;
-                    case 1 :
-                        changeLanguage("ben");
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        });
-        builderSingle.show();
-    }
-
-
-    private void changeLanguage(String languageToLoad){
-        shPref.edit().putString("language", languageToLoad).apply();
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
-
-    }
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode,
 //                                           @NonNull String permissions[],

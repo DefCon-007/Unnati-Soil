@@ -1,6 +1,10 @@
 package com.hna.unaati.unnati_soil;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -11,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +26,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+
+import java.util.Locale;
 
 public class resultNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback,LocationListener {
 
@@ -31,6 +39,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
     private MarkerOptions mMarkerOptions;
     private  Marker mMarker;
     private gpsTracker gps;
+
     private LatLng mDefaultLocation = new LatLng(22.3218, 87.3074);
     private int mDefaultZoom = 15;
     private locationData locData;
@@ -85,6 +94,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         }
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+        new DrawerBuilder().withActivity(this).build();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -104,6 +114,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         locData = new locationData(this.getApplicationContext(),ll.latitude,ll.longitude);
 
     }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

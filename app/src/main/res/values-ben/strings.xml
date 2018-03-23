@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Result Activity-->
     <string name="result_nitrogen_lable">নাইট্রোজেন</string>
     <string name="result_sand_lable">বালি</string>
     <string name="result_pH_lable">মাটি pH</string>
@@ -10,4 +10,5 @@
     <string name="title_maize">Maize</string>
     <string name="title_rice">Rice</string>
     <string name="title_notifications">Notifications</string>
+
 </resources>
