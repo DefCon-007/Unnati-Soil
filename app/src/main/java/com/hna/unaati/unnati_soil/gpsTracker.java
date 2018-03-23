@@ -201,6 +201,7 @@ public class gpsTracker extends Service implements LocationListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // TODO exception handling
         Address address = addressList.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
         return latLng;

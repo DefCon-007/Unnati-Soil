@@ -49,6 +49,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity
     private gpsTracker gps;
     private FloatingActionButton fabLocation, fabResult;
     JSONObject cities_latlng = new JSONObject();
+    JSONObject labs_latlng = new JSONObject();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +154,47 @@ public class MainActivity extends AppCompatActivity
 
             }
             Log.d("read", cities_latlng.toString());
+        }
+        catch (IOException e) {
+            Log.d("read", e.toString());
+
+        }
+
+
+
+        try {
+            InputStreamReader is = new InputStreamReader(getAssets()
+                    .open("soilNew.csv"));
+
+            BufferedReader reader = new BufferedReader(is);
+            reader.readLine();
+            String line;
+            int i =0;
+            while ((line = reader.readLine()) != null) {
+                i+=1;
+                if (i == 1)
+                    continue; //to bypass header
+                String[] separated = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                //Log.d("read", separated[3]);
+                JSONObject data_lab = new JSONObject();
+                try {
+                    if (separated.length == 36) {
+                        data_lab.put("name", separated[8]);
+                        data_lab.put("email", separated[11]);
+                        data_lab.put("mobile", separated[12]);
+                        labs_latlng.put(separated[34]+","+separated[35], data_lab);
+                    }
+                    else {
+                        Log.d("read", "except");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            Log.d("read", labs_latlng.toString());
         }
         catch (IOException e) {
             Log.d("read", e.toString());
@@ -318,7 +361,7 @@ public class MainActivity extends AppCompatActivity
         mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
         mMarkerOptions = new MarkerOptions().position(mDefaultLocation)
                 .draggable(true)
-                .title("Default Title");
+                .title("My location");
         gps = new gpsTracker(this);
         fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
         fabResult = (FloatingActionButton) findViewById(R.id.fab_result);
@@ -474,8 +517,42 @@ public class MainActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(DEFAULT_ZOOM);
+
         mMarker = gmap.addMarker(mMarkerOptions);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(mDefaultLocation));
+
+        Iterator<String> iter = labs_latlng.keys();
+        int i = 0;
+        while (iter.hasNext()) {
+            String key = iter.next();
+            String[] lat_lng = key.split(",");
+            try {
+
+                NumberFormat nf = NumberFormat.getInstance();
+                double lat = 0, lon = 0;
+                try {
+                    lat = nf.parse(lat_lng[0]).doubleValue();
+                    lon = nf.parse(lat_lng[0]).doubleValue();
+                }
+                catch (Exception e) {
+
+                }
+
+                JSONObject obj = labs_latlng.getJSONObject(key);
+                LatLng temp = new LatLng(lat,lon);
+                googleMap.addMarker(new MarkerOptions().position(temp)
+                        .title(obj.getString("name") + ":" + obj.getString("mobile")));
+                i+=1;
+                if (i == 3) {
+                    Log.d("read", temp.toString());
+                    gmap.moveCamera(CameraUpdateFactory.newLatLng(temp));
+
+                }
+            }
+            catch (JSONException e) {
+                //
+            }
+        }
+
 
         gmap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
