@@ -88,6 +88,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
                 carbon = Double.parseDouble(ed_oc.getText().toString());
                 prediction pd = new prediction(sand,clay,ph,carbon);
                 fillViews(pd);
+
             }
         });
 

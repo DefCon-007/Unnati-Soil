@@ -78,6 +78,6 @@ public class prediction {
     }
 
     private double getFertlizerAmount(double rec, double nutInCom){
-        return (((rec*100)/nutInCom) - ((sand+clay+organicCarbon+pH)%50));
+        return (((rec*100)/nutInCom) + ((sand+clay+organicCarbon+pH)%50));
     }
 }
