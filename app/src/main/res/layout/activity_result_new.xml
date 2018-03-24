@@ -24,26 +24,6 @@
                android:id="@+id/llOuter"
                ></LinearLayout>
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:weightSum="1"
-               android:padding="5dp"
-               android:layout_margin="5dp"
-               android:layout_height="wrap_content">
-
-               <TextView
-                   android:id="@+id/tvFetiliserName"
-                   android:layout_width="0dp"
-                   android:layout_weight="0.5"
-                   android:layout_height="wrap_content"
-                   android:text="Sample Fertiliser Name" />
-               <TextView
-                   android:id="@+id/tvFertiliserQuantity"
-                   android:layout_width="0dp"
-                   android:layout_weight="0.5"
-                   android:layout_height="wrap_content"
-                   android:text="XXX KG" />
-           </LinearLayout>
 
            <LinearLayout
                android:layout_width="match_parent"
@@ -55,12 +35,36 @@
                    android:id="@+id/tvNitrogenContentLabel"
                    android:layout_width="0dp"
                    android:layout_weight="0.5"
+                   android:textSize="17dp"
                    android:layout_height="wrap_content"
                    android:text="@string/result_nitrogen_lable" />
                <TextView
                    android:id="@+id/tvNitrogenContent"
                    android:layout_width="0dp"
                    android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:layout_height="wrap_content"
+                   android:text="XX%" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tvPContentLabel"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:layout_height="wrap_content"
+                   android:text="@string/result_nitrogen_lable" />
+               <TextView
+                   android:id="@+id/tvPContent"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
                    android:layout_height="wrap_content"
                    android:text="XX%" />
            </LinearLayout>
@@ -70,6 +74,7 @@
                android:layout_height="wrap_content"
                android:id="@+id/limeReccom"
                android:padding="5dp"
+               android:textSize="17dp"
                android:layout_margin="5dp"
                android:visibility="gone"
                />
@@ -84,12 +89,14 @@
                    android:id="@+id/tvLimeLabel"
                    android:layout_width="0dp"
                    android:layout_weight="0.5"
+                   android:textSize="17.0dp"
                    android:layout_height="wrap_content"
                    android:text="@string/result_nitrogen_lable" />
                <TextView
                    android:id="@+id/tvlimeContent"
                    android:layout_width="0dp"
                    android:layout_weight="0.5"
+                   android:textSize="17dp"
                    android:layout_height="wrap_content"
                    android:text="XX%" />
            </LinearLayout>

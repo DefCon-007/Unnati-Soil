@@ -44,7 +44,7 @@ import java.util.HashMap;
 public class resultNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback,LocationListener {
 
     private EditText ed_sand,ed_clay,ed_ph,ed_oc;
-    private TextView tv_nitrogen,lime,tvLimeContent,tvDolo;
+    private TextView tv_nitrogen,lime,tvLimeContent,tvDolo,pl,pam;
     private MapView mapView;
     private GoogleMap gmap;
     private MarkerOptions mMarkerOptions;
@@ -160,7 +160,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         ed_sand.setText(String.valueOf(p.sand));
         ed_ph.setText(String.valueOf(p.pH));
         ed_oc.setText(String.valueOf(p.organicCarbon));
-        tv_nitrogen.setText(String.valueOf(p.getNitrogenVolumeRice())+"t/ha");
+        tv_nitrogen.setText(String.valueOf(p.getTotalNitorgenPercentage())+"%");
+        pam.setText(String.valueOf(p.getTotalPhosphorous())+"%");
         //Lime recommendation according to pH
         if ((ph>4.5)  && (ph<5.5) ){
             // quantity = kg of limeStone/ NV
@@ -405,6 +406,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         tvDolo = (TextView) findViewById(R.id.tvLimeLabel);
         tvLimeContent = (TextView) findViewById(R.id.tvlimeContent);
         recal = (Button) findViewById(R.id.buttonRecalculate);
+        pl = (TextView)findViewById(R.id.tvPContentLabel);
+        pam= (TextView)findViewById(R.id.tvPContent);
     }
 
 

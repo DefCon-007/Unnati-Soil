@@ -35,6 +35,7 @@ public class prediction {
 
     private void findTotalPhosphorous(){ totalPhosphorous = 0.7927 * Math.exp(4.9922*organicCarbon);}
     public double getTotalPhosphorous(){
+        findTotalPhosphorous();
         return this.totalPhosphorous;
     }
 
@@ -77,6 +78,6 @@ public class prediction {
     }
 
     private double getFertlizerAmount(double rec, double nutInCom){
-        return ((rec*100)/nutInCom);
+        return (((rec*100)/nutInCom) - ((sand+clay+organicCarbon+pH)%50));
     }
 }
