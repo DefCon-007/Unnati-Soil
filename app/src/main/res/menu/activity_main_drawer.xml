@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Current Prices" />
+            android:title="@string/price" />
         <item
             android:id="@+id/nav_language"
             android:icon="@drawable/translation"
@@ -28,17 +28,17 @@
             <item
                 android:id="@+id/nav_manage"
                 android:icon="@drawable/ic_chat"
-                android:title="Talk to expert" />
+                android:title="@string/expert" />
 
             <item
                 android:id="@+id/nav_call"
                 android:icon="@drawable/ic_call"
-                android:title="Call" />
+                android:title="@string/call" />
             <item
 
                 android:id="@+id/nav_announcement"
                 android:icon="@drawable/ic_announcement"
-                android:title="Announcements" />
+                android:title="@string/announce" />
         </menu>
     </item>
 

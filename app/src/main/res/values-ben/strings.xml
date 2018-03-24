@@ -16,4 +16,9 @@
     <string name="pos_desc">ফসফরাসের প্রয়োজনে সারের যেকোনো একটি ব্যবহার করা যেতে পারে</string>
     <string name="unnat">উন্নত কৃষক</string>
     <string name="estval">আনুমানিক মূল্য</string>
+    <string name="call">কল</string>
+    <string name="announce">ছাপানো</string>
+    <string name="expert">বিশেষজ্ঞের সাথে কথা বলুন</string>
+    <string name="price">বর্তমান দর</string>
+    <string name="fertilizer">সার</string>
 </resources>

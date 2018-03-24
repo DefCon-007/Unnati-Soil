@@ -39,6 +39,9 @@
     <string name="unnat">Unnat Kisaan</string>
     <string name="estval">Estimated value</string>
     <string name="call">Call</string>
+    <string name="announce">Announce</string>
+    <string name="expert">Talk to expert</string>
+    <string name="price">Current Prices</string>
 
 
 
