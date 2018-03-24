@@ -17,6 +17,16 @@
 
            android:layout_height="match_parent">
 
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30dp"
+               android:padding="5dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginBottom="8dp"
+               android:text="@string/fertilizer"
+               />
+           
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
@@ -101,6 +111,10 @@
                    android:text="XX%" />
            </LinearLayout>
 
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="@android:color/darker_gray"/>
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
@@ -189,10 +203,18 @@
                </LinearLayout>
 
            </LinearLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:layout_marginTop="7dp"
+               android:background="@android:color/darker_gray"/>
+
            <Button
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/buttonRecalculate"
+               android:layout_marginTop="7dp"
                android:text="@string/result_button_recalculate"
                android:layout_gravity="bottom|center"
                />
