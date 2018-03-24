@@ -33,7 +33,8 @@
             android:name=".resultNew"
             android:label="@string/title_activity_result_new"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".announcement"></activity>
+        <activity android:name=".announcement" />
+        <activity android:name=".chat"></activity>
     </application>
 
 </manifest>
