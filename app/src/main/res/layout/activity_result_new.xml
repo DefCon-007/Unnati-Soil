@@ -59,7 +59,7 @@
                    android:layout_weight="0.5"
                    android:textSize="17dp"
                    android:layout_height="wrap_content"
-                   android:text="@string/result_nitrogen_lable" />
+                   android:text="Phosphorus" />
                <TextView
                    android:id="@+id/tvPContent"
                    android:layout_width="0dp"
