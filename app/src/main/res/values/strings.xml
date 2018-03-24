@@ -36,8 +36,9 @@
     <string name="lime_reco">The pH of the soil is quite low. Acidic soil is very harmful for the crop.Consider applying following dosage of lime.</string>
     <string name="no_lime">The pH of soil doesn\'t require lime</string>
     <string name="kg_ha">kg/ha</string>
-
-
+    <string name="unnat">Unnat Kisaan</string>
+    <string name="estval">Estimated value</string>
+    <string name="call">Call</string>
 
 
 

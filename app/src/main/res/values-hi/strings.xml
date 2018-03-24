@@ -38,4 +38,9 @@
     <string name="lime_reco">वह मिट्टी का पीएच काफी कम है। फसल के लिए अम्लीय मिट्टी बहुत हानिकारक है। चूने के निम्नलिखित खुराक को लागू करने पर विचार करें।</string>
     <string name="no_lime">मिट्टी के पीएच को चूने की आवश्यकता नहीं है</string>
     <string name="kg_ha">किलो प्रति हेक्टेयर </string>
+    <string name="nitrogen_desc">नाइट्रोजन आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है </string>
+    <string name="pot_desc">पोटेशियम की आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है</string>
+    <string name="pos_desc">फॉस्फोरस आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है</string>
+    <string name="unnat">उन्नत किसान</string>
+    <string name="estval">अनुमानित मान</string>
 </resources>
