@@ -24,10 +24,10 @@
 
     <!--Result Activity-->
     <string name="result_nitrogen_lable">Nitrogen</string>
-    <string name="result_sand_lable">Sand</string>
+    <string name="result_sand_lable">Sand %</string>
     <string name="result_pH_lable">Soil pH</string>
-    <string name="result_oc_lable">Organic Carbon</string>
-    <string name="result_clay_lable">Clay</string>
+    <string name="result_oc_lable">Organic Carbon %</string>
+    <string name="result_clay_lable">Clay %</string>
     <string name="result_button_recalculate">Recalculate</string>
     <string name="title_activity_result_new">Results</string>
     <string name="title_maize">Maize</string>

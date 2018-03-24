@@ -26,10 +26,10 @@
 
     <!--Result Activity-->
     <string name="result_nitrogen_lable">नाइट्रोजन </string>
-    <string name="result_sand_lable">बालू </string>
+    <string name="result_sand_lable">बालू % </string>
     <string name="result_pH_lable">मिटटी पीएच</string>
-    <string name="result_oc_lable">आर्गेनिक कार्बन </string>
-    <string name="result_clay_lable">क्ले </string>
+    <string name="result_oc_lable">आर्गेनिक कार्बन % </string>
+    <string name="result_clay_lable">क्ले % </string>
     <string name="result_button_recalculate">गणित करें </string>
     <string name="title_activity_result_new">उन्नति </string>
     <string name="title_maize">मक्का </string>
