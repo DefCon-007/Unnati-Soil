@@ -43,9 +43,15 @@
     <string name="pos_desc">फॉस्फोरस आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है</string>
     <string name="unnat">उन्नत किसान</string>
     <string name="estval">अनुमानित मान</string>
+
     <string name="call">कॉल</string>
     <string name="announce">घोषणा</string>
     <string name="expert">विशेषज्ञ से बात करें</string>
     <string name="price">वर्तमान मूल्य</string>
     <string name="fertilizer">उर्वरक</string>
+
+
+    <string name="prevalue">पूर्वानुमानित मान</string>
+    <string name="phs">फास्फोरस</string>
+
 </resources>

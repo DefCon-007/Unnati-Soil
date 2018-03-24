@@ -34,7 +34,15 @@
                android:id="@+id/llOuter"
                ></LinearLayout>
 
-
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30dp"
+               android:padding="5dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginBottom="8dp"
+               android:text="@string/estval"
+               />
            <LinearLayout
                android:layout_width="match_parent"
                android:weightSum="1"
@@ -69,7 +77,7 @@
                    android:layout_weight="0.5"
                    android:textSize="17dp"
                    android:layout_height="wrap_content"
-                   android:text="Phosphorus" />
+                   android:text="@string/phs" />
                <TextView
                    android:id="@+id/tvPContent"
                    android:layout_width="0dp"
@@ -122,7 +130,7 @@
                android:padding="5dp"
                android:layout_marginLeft="10dp"
                android:layout_marginBottom="8dp"
-               android:text="@string/estval"
+               android:text="@string/preval"
                />
 
            <LinearLayout
