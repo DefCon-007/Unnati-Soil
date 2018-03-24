@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Unnati-Soil</string>
+    <string name="app_name">Unnati Soil</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -19,7 +19,7 @@
 
     <!--Get Address from Latitude and Longitude -->
     <string name="default_marker_title">Title</string>
-    <string name="title_activity_result">result</string>
+    <string name="title_activity_result">Results</string>
 
 
 

@@ -37,4 +37,46 @@ public class prediction {
     public double getTotalPhosphorous(){
         return this.totalPhosphorous;
     }
+
+
+    public double getNitrogenFertilizer(double nutInCom){
+        return getFertlizerAmount(90,nutInCom);
+    }
+
+    public double getPhosphorusFertilizer(double nutInCom){
+        return getFertlizerAmount(40,nutInCom);
+    }
+
+    public double getPotassiumFertilizer(double nutInCom){
+        return getFertlizerAmount(55,nutInCom);
+    }
+
+    public int getLimeStoneValueLow(){
+        if (sand > 70 && clay < 20)
+            return 600;
+        else if (sand > 50 && clay < 20)
+            return  1100;
+        else if (sand > 30 && clay < 30)
+            return 1700;
+        else if (sand > 0 && clay < 30)
+            return 2700;
+        else
+            return 3350;
+    }
+    public int getLimeStoneValueHigh(){
+        if (sand > 70 && clay < 20)
+            return 900;
+        else if (sand > 50 && clay < 20)
+            return  1550;
+        else if (sand > 30 && clay < 30)
+            return 2200;
+        else if (sand > 0 && clay < 30)
+            return 3100;
+        else
+            return 4200;
+    }
+
+    private double getFertlizerAmount(double rec, double nutInCom){
+        return ((rec*100)/nutInCom);
+    }
 }

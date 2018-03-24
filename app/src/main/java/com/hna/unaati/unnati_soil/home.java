@@ -40,6 +40,7 @@ public class home extends AppCompatActivity {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(home.this, android.R.layout.select_dialog_singlechoice);
         arrayAdapter.add("English");
         arrayAdapter.add("বাঙালি");
+        arrayAdapter.add("हिंदी");
 
         builderSingle.setNegativeButton(getString(R.string.main_activity_language_cancel), new DialogInterface.OnClickListener() {
             @Override
@@ -58,6 +59,8 @@ public class home extends AppCompatActivity {
                     case 1 :
                         changeLanguage("ben");
                         break;
+                    case 2 :
+                        changeLanguage("hi");
                     default:
                         break;
                 }
