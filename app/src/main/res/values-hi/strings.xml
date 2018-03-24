@@ -51,7 +51,10 @@
     <string name="fertilizer">उर्वरक</string>
 
 
-    <string name="prevalue">पूर्वानुमानित मान</string>
+    <string name="preval">पूर्वानुमानित मान</string>
     <string name="phs">फास्फोरस</string>
+    <string name="potas">पोटैशियम</string>
+
+
 
 </resources>

@@ -112,9 +112,9 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         fillViews(pd);
         addSeprator(getString(R.string.result_nitrogen_lable),getString(R.string.nitrogen_desc),3);
         addNitrogen("nitrogen");
-        addSeprator("Phosphorus",getString(R.string.pos_desc),100);
+        addSeprator(getString(R.string.phs),getString(R.string.pos_desc),100);
         addPhos();
-        addSeprator("Potassium",getString(R.string.pot_desc),100);
+        addSeprator(getString(R.string.potas),getString(R.string.pot_desc),100);
         addPot();
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
