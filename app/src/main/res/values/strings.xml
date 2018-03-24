@@ -48,4 +48,7 @@
     <string name="pot_desc">Any one of the fertiliser can be used for Potassium requirement.</string>
     <string name="pos_desc">Any one of the fertiliser can be used for Phosphorus requirement.</string>
     <string name="fertilizer">Fertilizers</string>
+
+    <string name="preval">Predicted value</string>
+    <string name="phs">Phosphorus</string>
 </resources>
