@@ -161,7 +161,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         ed_ph.setText(String.valueOf(p.pH));
         ed_oc.setText(String.valueOf(p.organicCarbon));
         tv_nitrogen.setText(String.valueOf(p.getTotalNitorgenPercentage())+"%");
-        pam.setText(String.valueOf(p.getTotalPhosphorous())+"%");
+        pam.setText(String.valueOf(df.format(p.getTotalPhosphorous()))+"%");
         //Lime recommendation according to pH
         if ((ph>4.5)  && (ph<5.5) ){
             // quantity = kg of limeStone/ NV
