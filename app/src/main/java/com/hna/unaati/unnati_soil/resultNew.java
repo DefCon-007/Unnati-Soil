@@ -44,7 +44,7 @@ import java.util.HashMap;
 public class resultNew extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback,LocationListener {
 
     private EditText ed_sand,ed_clay,ed_ph,ed_oc;
-    private TextView tv_nitrogen,lime,tvLimeContent,tvDolo;
+    private TextView tv_nitrogen,lime,tvLimeContent,tvDolo,pl,pam;
     private MapView mapView;
     private GoogleMap gmap;
     private MarkerOptions mMarkerOptions;
@@ -97,6 +97,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         double lat = b.getDouble("lat");
         double lon = b.getDouble("lon");
             locData = new locationData(this.getApplicationContext(),lat, lon);
+//            mMarker.setPosition(new LatLng(lat, lon));
         }
         catch (Exception e){
             Log.d("result","Estimating data");
@@ -108,9 +109,11 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         carbon = locData.getCarbon();
         pd = new prediction(sand,clay,ph,carbon);
         fillViews(pd);
-        addSeprator("Nitrogen","NitrogenDEsc");
+        addSeprator(getString(R.string.result_nitrogen_lable),getString(R.string.nitrogen_desc));
         addNitrogen("nitrogen");
+        addSeprator("Phosphorus",getString(R.string.pos_desc));
         addPhos();
+        addSeprator("Potassium",getString(R.string.pot_desc));
         addPot();
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -135,6 +138,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         TextView tvlabel = new TextView(this);
         tvlabel.setLayoutParams(layoutParams);
         tvlabel.setTextSize(20);
+        tvlabel.setPadding(7,7,0,0);
         tvlabel.setTypeface(null, Typeface.BOLD_ITALIC);
         tvlabel.setText((CharSequence) name);
 
@@ -142,7 +146,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
 
         TextView tvamnt = new TextView(this);
         tvamnt.setTextSize(15);
-//        tvamnt.m
+        tvamnt.setPadding(10,4,0,5);
         tvamnt.setLayoutParams(layoutParams);
         tvamnt.setText((CharSequence) Desc);
 
@@ -157,7 +161,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         ed_sand.setText(String.valueOf(p.sand));
         ed_ph.setText(String.valueOf(p.pH));
         ed_oc.setText(String.valueOf(p.organicCarbon));
-        tv_nitrogen.setText(String.valueOf(p.getNitrogenVolumeRice())+"t/ha");
+        tv_nitrogen.setText(String.valueOf(p.getTotalNitorgenPercentage())+"%");
+        pam.setText(String.valueOf(p.getTotalPhosphorous())+"%");
         //Lime recommendation according to pH
         if ((ph>4.5)  && (ph<5.5) ){
             // quantity = kg of limeStone/ NV
@@ -198,7 +203,6 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
 
         LinearLayout myRoot = (LinearLayout) findViewById(R.id.llOuter);
         LinearLayout a = new LinearLayout(this);
-        a.setPadding(5,5,5,5);
         a.setOrientation(LinearLayout.HORIZONTAL);
         a.setWeightSum(1);
         a.setPadding(5,5,5,5);
@@ -207,12 +211,15 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
 
         TextView tvlabel = new TextView(this);
         tvlabel.setLayoutParams(layoutParams);
+        tvlabel.setPadding(7,3,0,0);
         tvlabel.setText((CharSequence) label);
+        tvlabel.setTextSize(17);
 
 
 
         TextView tvamnt = new TextView(this);
         tvamnt.setLayoutParams(layoutParams);
+        tvamnt.setTextSize(17);
         tvamnt.setText((CharSequence) value);
 
         a.addView(tvlabel);
@@ -400,6 +407,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         tvDolo = (TextView) findViewById(R.id.tvLimeLabel);
         tvLimeContent = (TextView) findViewById(R.id.tvlimeContent);
         recal = (Button) findViewById(R.id.buttonRecalculate);
+        pl = (TextView)findViewById(R.id.tvPContentLabel);
+        pam= (TextView)findViewById(R.id.tvPContent);
     }
 
 
@@ -515,8 +524,8 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
     }
 
     private void updateLocation(LatLng position) {
-        mMarker.setPosition(position);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(position));
+//        mMarker.setPosition(position);
+//        gmap.moveCamera(CameraUpdateFactory.newLatLng(position));
 //        mMarker.setTitle(getAddress(position));
     }
 
