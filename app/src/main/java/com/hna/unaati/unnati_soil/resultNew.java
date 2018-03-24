@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
+import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -200,7 +201,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
 
         // Adding fertiliser views
     }
-    private void addFertiliserResult(String label, String value){
+    private void addFertiliserResult(final String label, String value){
 
         LinearLayout myRoot = (LinearLayout) findViewById(R.id.llOuter);
         LinearLayout a = new LinearLayout(this);
@@ -215,6 +216,13 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         tvlabel.setPadding(7,3,0,0);
         tvlabel.setText((CharSequence) label);
         tvlabel.setTextSize(17);
+        tvlabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("http://www.google.com/search?q=%s&btnI", label)));
+                startActivity(browserIntent);
+            }
+        });
 
 
 
