@@ -108,6 +108,7 @@
                    android:layout_width="0dp"
                    android:layout_weight="0.5"
                    android:textSize="17.0dp"
+                   android:visibility="gone"
                    android:layout_height="wrap_content"
                    android:text="@string/result_nitrogen_lable" />
                <TextView
@@ -115,6 +116,7 @@
                    android:layout_width="0dp"
                    android:layout_weight="0.5"
                    android:textSize="17dp"
+                   android:visibility="gone"
                    android:layout_height="wrap_content"
                    android:text="XX%" />
            </LinearLayout>
