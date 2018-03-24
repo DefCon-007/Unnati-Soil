@@ -36,7 +36,7 @@ public class locationData {
         return this.clay;
     }
     public double getph(){
-        return this.clay;
+        return this.ph;
     }
     public double getCarbon(){
         return this.carbon;

@@ -22,17 +22,23 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".resultNew"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".resultNew"
+            android:label="@string/title_activity_result_new"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+        <activity android:name=".home"
+            android:noHistory="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".resultNew"
-            android:label="@string/title_activity_result_new"
-            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".announcement" />
         <activity android:name=".chat"></activity>
     </application>

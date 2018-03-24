@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Unnati-Soil</string>
+    <string name="app_name">Unnati Soil</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -19,7 +19,7 @@
 
     <!--Get Address from Latitude and Longitude -->
     <string name="default_marker_title">Title</string>
-    <string name="title_activity_result">result</string>
+    <string name="title_activity_result">Results</string>
 
 
     <!--Result Activity-->
@@ -33,4 +33,7 @@
     <string name="title_maize">Maize</string>
     <string name="title_rice">Rice</string>
     <string name="title_notifications">Notifications</string>
+    <string name="lime_reco">The pH of the soil is quite low. Acidic soil is very harmful for the crop.Consider applying following dosage of lime.</string>
+    <string name="no_lime">The pH of soil doesn\'t require lime</string>
+    <string name="kg_ha">kg/ha</string>
 </resources>
