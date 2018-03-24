@@ -47,4 +47,5 @@
     <string name="nitrogen_desc">Any one of the fertiliser can be used for Nitrogen requirement. </string>
     <string name="pot_desc">Any one of the fertiliser can be used for Potassium requirement.</string>
     <string name="pos_desc">Any one of the fertiliser can be used for Phosphorus requirement.</string>
+    <string name="fertilizer">Fertilizers</string>
 </resources>

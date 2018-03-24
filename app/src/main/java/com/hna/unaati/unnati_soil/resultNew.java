@@ -110,11 +110,11 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         carbon = locData.getCarbon();
         pd = new prediction(sand,clay,ph,carbon);
         fillViews(pd);
-        addSeprator(getString(R.string.result_nitrogen_lable),getString(R.string.nitrogen_desc));
+        addSeprator(getString(R.string.result_nitrogen_lable),getString(R.string.nitrogen_desc),3);
         addNitrogen("nitrogen");
-        addSeprator("Phosphorus",getString(R.string.pos_desc));
+        addSeprator("Phosphorus",getString(R.string.pos_desc),100);
         addPhos();
-        addSeprator("Potassium",getString(R.string.pot_desc));
+        addSeprator("Potassium",getString(R.string.pot_desc),100);
         addPot();
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -128,7 +128,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void addSeprator(String name,String Desc){
+    private void addSeprator(String name,String Desc,int padding){
         LinearLayout myRoot = (LinearLayout) findViewById(R.id.llOuter);
         LinearLayout a = new LinearLayout(this);
         a.setPadding(6,6,6,6);
@@ -139,7 +139,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         TextView tvlabel = new TextView(this);
         tvlabel.setLayoutParams(layoutParams);
         tvlabel.setTextSize(20);
-        tvlabel.setPadding(7,7,0,0);
+        tvlabel.setPadding(7,padding,0,0);
         tvlabel.setTypeface(null, Typeface.BOLD_ITALIC);
         tvlabel.setText((CharSequence) name);
 
@@ -147,7 +147,7 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
 
         TextView tvamnt = new TextView(this);
         tvamnt.setTextSize(15);
-        tvamnt.setPadding(10,4,0,5);
+        tvamnt.setPadding(10,4,0,50);
         tvamnt.setLayoutParams(layoutParams);
         tvamnt.setText((CharSequence) Desc);
 
