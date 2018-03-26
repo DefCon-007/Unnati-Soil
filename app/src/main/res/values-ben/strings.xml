@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="result_nitrogen_lable">নাইট্রোজেন</string>
+    <string name="result_sand_lable">বালি</string>
+    <string name="result_pH_lable">মাটি pH</string>
+    <string name="result_oc_lable">জৈব কারবন</string>
+    <string name="result_clay_lable">কাদামাটি</string>
+    <string name="result_button_recalculate">পুনঃগণনা</string>
+    <string name="title_activity_result_new">resultNew</string>
+    <string name="title_maize">ভুট্টা</string>
+    <string name="title_rice">ধান</string>
+    <string name="title_notifications">বিজ্ঞপ্তিগুলি</string>
+    <string name="main_activity_language_select">ভাষা নির্বাচন কর</string>
+    <string name="nitrogen_desc">নাইট্রোজেনের প্রয়োজনে সারের যেকোনো একটি ব্যবহার করা যেতে পারে </string>
+    <string name="pot_desc">সারের যেকোনো একটিতে পটাসিয়ামের প্রয়োজনের জন্য ব্যবহার করা যেতে পারে</string>
+    <string name="pos_desc">ফসফরাসের প্রয়োজনে সারের যেকোনো একটি ব্যবহার করা যেতে পারে</string>
+    <string name="unnat">উন্নত কৃষক</string>
+    <string name="estval">আনুমানিক মূল্য</string>
+
+    <string name="call">কল</string>
+    <string name="announce">ছাপানো</string>
+    <string name="expert">বিশেষজ্ঞের সাথে কথা বলুন</string>
+    <string name="price">বর্তমান দর</string>
+    <string name="fertilizer">সার</string>
+
+
+
+    <string name="preval">পূর্বাভাস মান</string>
+    <string name="phs">ভোরের তারা</string>
+    <string name="potas">পটাসিয়াম</string>
+
+</resources>

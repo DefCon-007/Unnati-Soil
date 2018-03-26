@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">उन्नति मिटटी</string>
+
+    <string name="navigation_drawer_open">दराज खोलें </string>
+    <string name="navigation_drawer_close">दराज बंद करें </string>
+
+    <string name="action_settings">पतिस्थिति</string>
+
+    <string name="gps_permission_denied">जी.पी.एस. आज्ञा की जरूरत है, स्थान जानने के लिए</string>
+
+    <!--Main Activity-->
+    <string name="main_activity_language_select">भाषा चुनें</string>
+    <string name="main_activity_language_cancel">रद्द करें </string>
+
+    <!--No GPS Alert Dialog-->
+    <string name="noGPS_alert_dialog_no">नहीं </string>
+    <string name="noGPS_alert_dialog_yes">हाँ </string>
+    <string name="noGPS_alert_dialog_title">आपका जी.पी.एस. चालु नहीं  है, चालु करें ?</string>
+
+    <!--Get Address from Latitude and Longitude -->
+    <string name="default_marker_title">शीर्षक</string>
+    <string name="title_activity_result">परिणाम</string>
+
+
+
+    <!--Result Activity-->
+    <string name="result_nitrogen_lable">नाइट्रोजन </string>
+    <string name="result_sand_lable">बालू % </string>
+    <string name="result_pH_lable">मिटटी पीएच</string>
+    <string name="result_oc_lable">आर्गेनिक कार्बन % </string>
+    <string name="result_clay_lable">क्ले % </string>
+    <string name="result_button_recalculate">गणित करें </string>
+    <string name="title_activity_result_new">उन्नति </string>
+    <string name="title_maize">मक्का </string>
+    <string name="title_rice">चावल</string>
+    <string name="title_notifications">सूचनाएं</string>
+    <string name="lime_reco">वह मिट्टी का पीएच काफी कम है। फसल के लिए अम्लीय मिट्टी बहुत हानिकारक है। चूने के निम्नलिखित खुराक को लागू करने पर विचार करें।</string>
+    <string name="no_lime">मिट्टी के पीएच को चूने की आवश्यकता नहीं है</string>
+    <string name="kg_ha">किलो प्रति हेक्टेयर </string>
+    <string name="nitrogen_desc">नाइट्रोजन आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है </string>
+    <string name="pot_desc">पोटेशियम की आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है</string>
+    <string name="pos_desc">फॉस्फोरस आवश्यकता के लिए किसी भी एक उर्वरक का उपयोग किया जा सकता है</string>
+    <string name="unnat">उन्नत किसान</string>
+    <string name="estval">अनुमानित मान</string>
+
+    <string name="call">कॉल</string>
+    <string name="announce">घोषणा</string>
+    <string name="expert">विशेषज्ञ से बात करें</string>
+    <string name="price">वर्तमान मूल्य</string>
+    <string name="fertilizer">उर्वरक</string>
+
+
+    <string name="preval">पूर्वानुमानित मान</string>
+    <string name="phs">फास्फोरस</string>
+    <string name="potas">पोटैशियम</string>
+
+
+
+</resources>

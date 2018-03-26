@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hna.unaati.unnati_soil.resultNew">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+
+           android:layout_height="match_parent">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30dp"
+               android:padding="5dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginBottom="8dp"
+               android:text="@string/fertilizer"
+               />
+           
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:id="@+id/llOuter"
+               ></LinearLayout>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30dp"
+               android:padding="5dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginBottom="8dp"
+               android:text="@string/estval"
+               />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tvNitrogenContentLabel"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:layout_height="wrap_content"
+                   android:text="@string/result_nitrogen_lable" />
+               <TextView
+                   android:id="@+id/tvNitrogenContent"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:layout_height="wrap_content"
+                   android:text="XX%" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tvPContentLabel"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:layout_height="wrap_content"
+                   android:text="@string/phs" />
+               <TextView
+                   android:id="@+id/tvPContent"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:layout_height="wrap_content"
+                   android:text="XX%" />
+           </LinearLayout>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/limeReccom"
+               android:padding="5dp"
+               android:textSize="17dp"
+               android:layout_margin="5dp"
+               android:visibility="gone"
+               />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:weightSum="1"
+               android:padding="5dp"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tvLimeLabel"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17.0dp"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content"
+                   android:text="@string/result_nitrogen_lable" />
+               <TextView
+                   android:id="@+id/tvlimeContent"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.5"
+                   android:textSize="17dp"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content"
+                   android:text="XX%" />
+           </LinearLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="@android:color/darker_gray"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30dp"
+               android:padding="5dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginBottom="8dp"
+               android:text="@string/preval"
+               />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginTop="15dp"
+               android:orientation="vertical"
+               >
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvSand"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_sand_lable" />
+                   <EditText
+                       android:id="@+id/edSand"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvpH"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_pH_lable" />
+                   <EditText
+                       android:id="@+id/edpH"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvOC"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_oc_lable" />
+                   <EditText
+                       android:id="@+id/edOC"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:weightSum="1"
+                   android:padding="5dp"
+                   android:layout_margin="5dp"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/tvClay"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="@string/result_clay_lable" />
+                   <EditText
+                       android:id="@+id/edClay"
+                       android:layout_width="0dp"
+                       android:layout_weight="0.5"
+                       android:layout_height="wrap_content"
+                       android:text="XX" />
+               </LinearLayout>
+
+           </LinearLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:layout_marginTop="7dp"
+               android:background="@android:color/darker_gray"/>
+
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/buttonRecalculate"
+               android:layout_marginTop="7dp"
+               android:text="@string/result_button_recalculate"
+               android:layout_gravity="bottom|center"
+               />
+
+           <com.google.android.gms.maps.MapView
+               android:id="@+id/mapView"
+               android:layout_margin="8dp"
+               android:padding="3dp"
+               android:layout_width="match_parent"
+               android:layout_height="300dp"
+              />
+       </LinearLayout>
+
+
+   </ScrollView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
+
+</android.support.constraint.ConstraintLayout>

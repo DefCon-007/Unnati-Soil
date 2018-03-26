@@ -1,8 +1,55 @@
 <resources>
-    <string name="app_name">Unnati-Soil</string>
+    <string name="app_name">Unnati Soil</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="gps_permission_denied">GPS Permission needed to update current location.</string>
+
+    <!--Main Activity-->
+    <string name="main_activity_language_select">Select Language</string>
+    <string name="main_activity_language_cancel">Cancel</string>
+
+    <!--No GPS Alert Dialog-->
+    <string name="noGPS_alert_dialog_no">No</string>
+    <string name="noGPS_alert_dialog_yes">Yes</string>
+    <string name="noGPS_alert_dialog_title">Your GPS seems to be disabled, do you want to enable it?</string>
+
+    <!--Get Address from Latitude and Longitude -->
+    <string name="default_marker_title">Title</string>
+    <string name="title_activity_result">Results</string>
+
+
+    <!--Result Activity-->
+    <string name="result_nitrogen_lable">Nitrogen</string>
+    <string name="result_sand_lable">Sand %</string>
+    <string name="result_pH_lable">Soil pH</string>
+    <string name="result_oc_lable">Organic Carbon %</string>
+    <string name="result_clay_lable">Clay %</string>
+    <string name="result_button_recalculate">Recalculate</string>
+    <string name="title_activity_result_new">Results</string>
+    <string name="title_maize">Maize</string>
+    <string name="title_rice">Rice</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="lime_reco">The pH of the soil is quite low. Acidic soil is very harmful for the crop.Consider applying following dosage of lime.</string>
+    <string name="no_lime">The pH of soil doesn\'t require lime</string>
+    <string name="kg_ha">kg/ha</string>
+    <string name="unnat">Unnat Kisaan</string>
+    <string name="estval">Estimated value</string>
+    <string name="call">Call</string>
+    <string name="announce">Announce</string>
+    <string name="expert">Talk to expert</string>
+    <string name="price">Current Prices</string>
+
+
+    <string name="nitrogen_desc">Any one of the fertiliser can be used for Nitrogen requirement. </string>
+    <string name="pot_desc">Any one of the fertiliser can be used for Potassium requirement.</string>
+    <string name="pos_desc">Any one of the fertiliser can be used for Phosphorus requirement.</string>
+    <string name="fertilizer">Fertilizers</string>
+
+    <string name="preval">Predicted value</string>
+    <string name="phs">Phosphorus</string>
+    <string name="potas">Potassium</string>
 </resources>

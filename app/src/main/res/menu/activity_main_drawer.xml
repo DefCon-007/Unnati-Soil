@@ -4,34 +4,41 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+        <!--<item-->
+            <!--android:id="@+id/nav_camera"-->
+            <!--android:icon="@drawable/ic_menu_camera"-->
+            <!--android:title="Import" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_gallery"-->
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+            <!--android:title="GallerY" />-->
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="@string/price" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_language"
+            android:icon="@drawable/translation"
+            android:title="@string/main_activity_language_select" />
+
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_chat"
+                android:title="@string/expert" />
+
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_call"
+                android:icon="@drawable/ic_call"
+                android:title="@string/call" />
+            <item
+
+                android:id="@+id/nav_announcement"
+                android:icon="@drawable/ic_announcement"
+                android:title="@string/announce" />
         </menu>
     </item>
 
