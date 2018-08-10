@@ -123,7 +123,6 @@ public class resultNew extends AppCompatActivity implements NavigationView.OnNav
         }
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
-        new DrawerBuilder().withActivity(this).build();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
